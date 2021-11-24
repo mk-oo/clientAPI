@@ -74,16 +74,12 @@ def authinticateTimeStamp(clientOTP,system_Admin_Timestamp):
         print('plus 2 zeros:  ',res)
 
         # add the result to 1609452000 which represents the timestamp of 1/1/2021
+        # the result will be admin timestamp with +/- 1.6 min
         system_Admin_Timestamp = res + 1609452000 
-
-        print('System admin time:  ',system_Admin_Timestamp)
 
         # get the current timestamp of the client
         now = datetime.now()
         result = int(datetime.timestamp(now))
-        print('current Time:  ',result)
-
-        print('original_timestamp from admin:  ',system_Admin_Timestamp)
 
         #get the difference of client timestamp and admin timestamp 
         # if the difference from current timestamp and the admin's timestamp is 300 or greater
@@ -136,8 +132,9 @@ def home():
 # route that admin will send in it user_id and otp
 @app.route('/client', methods=['GET'])
 def success():
-
+        #get usercode from url
         UserCode = request.args.get('id')
+        #get otp from url
         clientOTP = request.args.get('otp')
 
         #variable which will hold True or false as string 
